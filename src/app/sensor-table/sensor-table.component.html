@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Sensor table</title>
-  </head>
-  <body>
-    <h2>Sensor Table</h2><br>
+ <h2 align="center">Sensor Table</h2><br>
+<div class="sensor-table">
+  <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)">
+  <ng2-smart-table [settings]="settings" [source]="searchData"></ng2-smart-table>
+</div>
 
-    <input type="text" name="search" [(ngModel)]="search" placeholder="Enter text to search">
-    <input type="button" name="search" value="Search" (click)="Message()">
-    <br><br>
-
-  </body>
-</html>
 

@@ -1,28 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Login Form</title>
-  </head>
-  <body>
-    <h2>Login Page</h2><br>
-    <div class="login">
-      <form id="login" method="get" action="login.php">
-        <small>Enter your login and password</small>
-        <br><br>
-        <label><b>Login
-        </b>
-          <br>
-        </label>
-        <input type="text" name="Login" required="required" [(ngModel)]="login" placeholder="Username">
-        <br><br>
-        <label><b>Password
-        </b>
-          <br>
-        </label>
-        <input type="Password" name="Password" required="required" [(ngModel)]="pass" placeholder="Password">
-        <br><br>
-        <input type="button" name="log" value="Login" (click)="LoginUser()">
-      </form>
-    </div>
-  </body>
-</html>
+<h2>Login Page</h2>
+<br>
+<div class="login">
+  <small>Enter your login and password</small>
+  <br>
+  <br>
+  <label>
+    <b>Login
+    </b>
+    <br>
+  </label>
+  <input type="text" name="Login" required="required" [(ngModel)]="login" placeholder="Username">
+  <br>
+  <br>
+  <label>
+    <b>Password
+    </b>
+    <br>
+  </label>
+  <input type="Password" name="Password" required="required" [(ngModel)]="pass" placeholder="Password">
+  <br>
+  <br>
+  <input type="button" name="log" value="Login" (click)="loginUser()">
+</div>

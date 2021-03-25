@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  LoginUser() {
+  loginUser(): void {
     if (this.login === 'admin' && this.pass === '1234') {
       console.log('Welcome!');
     }
