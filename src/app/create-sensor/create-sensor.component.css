@@ -1,0 +1,21 @@
+.example-form {
+  min-width: 150px;
+  max-width: 300px;
+  width: 50%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.selected-class{
+  width: 100%;
+}
+
+.example-button-row {
+
+  width: 100%;
+}
+
+.form {
+}

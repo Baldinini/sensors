@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthRequest } from '../model/auth-request';
+import { JwtClientService } from '../service/jwt-client.service';
 
 @Component({
   selector: 'app-login',
@@ -6,19 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  login: string;
-  pass: string;
+  authRequest: AuthRequest = new AuthRequest();
+  response: string;
+  hide = true;
 
-  constructor() {
+  constructor( private jwtClientService: JwtClientService ) {
   }
 
   ngOnInit(): void {
   }
 
-  loginUser(): void {
-    if (this.login === 'admin' && this.pass === '1234') {
-      console.log('Welcome!');
-    }
+  loginUser(): any {
+    this.jwtClientService.generateToken(this.authRequest).subscribe(data => {
+      console.log('Token: ' + JSON.parse(data)['jwt']);
+      this.hello(data);
+    });
+  }
+
+  hello( token ): any {
+    return this.jwtClientService.hello(token).subscribe(data => console.log(data));
   }
 }
 

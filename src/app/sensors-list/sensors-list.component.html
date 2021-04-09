@@ -1,0 +1,49 @@
+<h1 align="center">Monitor-sensors</h1>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Filter</mat-label>
+    <label>
+      <input matInput type="text" [(ngModel)]="filter.keyword" name="keyword" (input)="getAllSensors()">
+    </label>
+  </mat-form-field>
+</form>
+
+<mat-table [dataSource]="sensors">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let sensor">{{sensor.name}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="model">
+    <mat-header-cell *matHeaderCellDef> Model </mat-header-cell>sensors-list.component.ts:37
+    <mat-cell *matCellDef="let sensor">{{sensor.model}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="typeName">
+    <mat-header-cell *matHeaderCellDef> Type </mat-header-cell >
+    <mat-cell *matCellDef="let sensor">{{sensor.typeName}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="unitName">
+    <mat-header-cell *matHeaderCellDef> Unit </mat-header-cell >
+    <mat-cell *matCellDef="let sensor">{{sensor.unitName}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="range">
+    <mat-header-cell  *matHeaderCellDef> Range </mat-header-cell >
+    <mat-cell *matCellDef="let sensor">{{sensor.rangeFrom}} - {{sensor.rangeTo}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="location">
+    <mat-header-cell  *matHeaderCellDef> Location </mat-header-cell>
+    <mat-cell *matCellDef="let sensor">{{sensor.location}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="buttons">
+    <mat-header-cell  *matHeaderCellDef> Choose operation </mat-header-cell>
+    <mat-cell *matCellDef="let sensor">
+      <button mat-raised-button color="primary" routerLink="edit/{{sensor.id}}">Edit</button>
+      <button mat-raised-button color="warn" (click)="delete(sensor.id)">Delete</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<button routerLink="/sensors/create" mat-raised-button color="primary">Add sensor</button>

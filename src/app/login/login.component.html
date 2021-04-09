@@ -1,24 +1,16 @@
-<h2>Login Page</h2>
-<br>
-<div class="login">
-  <small>Enter your login and password</small>
-  <br>
-  <br>
-  <label>
-    <b>Login
-    </b>
+<h2 align="center">Login Page</h2>
+<div class="form" align="center">
+  <form class="example-form" (ngSubmit)="loginUser()">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter username</mat-label>
+      <input matInput type="text" name="login" matInput placeholder="Sensor" required [(ngModel)]="authRequest.username">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" name="pass" matInput placeholder="Sensor" required [(ngModel)]="authRequest.password">
+    </mat-form-field>
     <br>
-  </label>
-  <input type="text" name="Login" required="required" [(ngModel)]="login" placeholder="Username">
-  <br>
-  <br>
-  <label>
-    <b>Password
-    </b>
-    <br>
-  </label>
-  <input type="Password" name="Password" required="required" [(ngModel)]="pass" placeholder="Password">
-  <br>
-  <br>
-  <input type="button" name="log" value="Login" (click)="loginUser()">
+    <button type="submit" mat-raised-button>Login</button>
+    <button type="reset" mat-raised-button>Cancel</button>
+  </form>
 </div>

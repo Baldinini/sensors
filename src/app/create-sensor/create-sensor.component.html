@@ -1,0 +1,49 @@
+<h2 align="center">Create sensor</h2>
+<div class="form" align="center">
+  <form class="example-form" (ngSubmit)="createSensor()" >
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input type="text" name="name" matInput placeholder="Sensor" required [(ngModel)]="sensor.name">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Model</mat-label>
+      <input type="text" name="model" matInput placeholder="Sensor model" required [(ngModel)]="sensor.model">
+    </mat-form-field>
+    <mat-form-field class="selected-class" appearance="fill">
+      <mat-label>Type</mat-label>
+      <select matNativeControl required name="typeName" [(ngModel)]="sensor.typeName">
+        <option value="PRESSURE">Pressure</option>
+        <option value="VOLTAGE">Voltage</option>
+        <option value="TEMPERATURE">Temperature</option>
+        <option value="HUMIDITY">Humidity</option>
+      </select>
+    </mat-form-field>
+    <mat-form-field class="selected-class" appearance="fill">
+      <mat-label>Unit</mat-label>
+      <select matNativeControl required name="idUnit" [(ngModel)]="sensor.unitName">
+        <option value="BAR">Bar</option>
+        <option value="VOLTAGE">Voltage</option>
+        <option value="CELSIUS">Celsius</option>
+        <option value="PERCENT">Percent</option>
+      </select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Range from</mat-label>
+      <input type="number" name="rangeFrom" matInput placeholder="10" [(ngModel)]="sensor.rangeFrom">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Range to</mat-label>
+      <input type="number" name="rangeTo" matInput placeholder="20" [(ngModel)]="sensor.rangeTo">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Location</mat-label>
+      <input type="text" name="location" matInput placeholder="Room 1" [(ngModel)]="sensor.location">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea type="text" name="description" matInput placeholder="Sensor is ..." [(ngModel)]="sensor.description"></textarea>
+    </mat-form-field>
+    <button type="submit" mat-raised-button>Create/Edit</button>
+    <button type="reset" mat-raised-button>Cancel</button>
+  </form>
+</div>
