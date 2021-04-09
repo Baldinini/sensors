@@ -40,7 +40,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

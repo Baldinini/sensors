@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginComponent } from '../login/login.component';
 import { Sensor } from '../model/sensor';
 import { SensorService } from '../service/sensor.service';
 
@@ -11,17 +12,20 @@ import { SensorService } from '../service/sensor.service';
 export class SensorsListComponent implements OnInit {
   sensors: Sensor[] = [];
   displayedColumns: string[] = ['name', 'model', 'typeName', 'unitName', 'range', 'location', 'buttons'];
+  token: string;
 
   filter = {
     keyword: ''
   };
-  constructor(private sensorService: SensorService) { }
+  constructor(private sensorService: SensorService, private login: LoginComponent) { }
 
   ngOnInit(): void {
-    this.sensorService.getAllSensors().subscribe(sensors => this.sensors = sensors);
+    this.login.token.subscribe(token => this.token = token);
+    console.log(this.token);
+    this.sensorService.getAllSensors(this.token).subscribe(sensors => this.sensors = sensors);
   }
   getAllSensors(): void {
-    this.sensorService.getAllSensors().subscribe(sensors => this.sensors = this.filterSensor(sensors));
+    this.sensorService.getAllSensors(this.token).subscribe(sensors => this.sensors = this.filterSensor(sensors));
   }
   delete(id: number): void {
     this.sensorService.deleteSensor(id).subscribe(() => {

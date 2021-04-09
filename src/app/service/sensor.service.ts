@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Sensor } from '../model/sensor';
@@ -11,8 +11,10 @@ export class SensorService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllSensors(): Observable<Sensor[]> {
-    return this.httpClient.get<Sensor[]>(this.baseUrl);
+  getAllSensors(token): Observable<Sensor[]> {
+    const tokenStr = 'Bearer ' + JSON.parse(token)['jwt'];
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.httpClient.get<Sensor[]>(this.baseUrl, {headers, responseType: 'text' as 'json'});
   }
 
   createSensor(sensor: Sensor): Observable<void>{
