@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sensor } from '../model/sensor';
+import { NotificationService } from '../service/notification.service';
 import { SensorService } from '../service/sensor.service';
 
 @Component({
@@ -11,7 +12,9 @@ import { SensorService } from '../service/sensor.service';
 export class CreateSensorComponent implements OnInit {
 
   sensor: Sensor = new Sensor();
-  constructor( private sensorService: SensorService, private router: Router, private activatedRoute: ActivatedRoute) {
+
+  constructor( private sensorService: SensorService, private router: Router, private activatedRoute: ActivatedRoute,
+               private notifySensor: NotificationService ) {
   }
 
   ngOnInit(): void {
@@ -30,15 +33,20 @@ export class CreateSensorComponent implements OnInit {
       this.editSensor();
     } else {
       this.sensorService.createSensor(this.sensor).subscribe(() => {
-        this.router.navigateByUrl('sensors');
-      });
-
+          this.router.navigateByUrl('sensors');
+        },
+        () => {
+          this.notifySensor.showError('Not accses', 'Error');
+        });
     }
   }
 
   editSensor(): void {
     this.sensorService.updateSensor(this.sensor.id, this.sensor).subscribe(() => {
-      this.router.navigateByUrl('sensors');
-    });
+        this.router.navigateByUrl('sensors');
+      },
+      () => {
+        this.notifySensor.showError('Not accses', 'Error');
+      });
   }
 }

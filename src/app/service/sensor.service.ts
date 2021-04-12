@@ -1,39 +1,52 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthRequest } from '../model/auth-request';
 import { Sensor } from '../model/sensor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SensorService {
-  baseUrl = 'http://localhost:8080/sensors';
-  constructor(private httpClient: HttpClient) {
+  private baseUrl = 'http://localhost:8080/sensors';
+  private token: string;
+
+  constructor( private httpClient: HttpClient ) {
   }
 
-  getAllSensors(token): Observable<Sensor[]> {
-    const tokenStr = 'Bearer ' + JSON.parse(token)['jwt'];
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.httpClient.get<Sensor[]>(this.baseUrl, {headers, responseType: 'text' as 'json'});
+  public generateToken( authRequest: AuthRequest ): Observable<string> {
+    const observable = this.httpClient.post<string>(`http://localhost:8080/authentication`, authRequest, {responseType: 'text' as 'json'});
+    observable.subscribe(data => this.token = data);
+    localStorage.setItem('Token', 'Bearer ' + JSON.parse(this.token)['jwt']);
+    return observable;
   }
 
-  createSensor(sensor: Sensor): Observable<void>{
-    return this.httpClient.post<void>(this.baseUrl, sensor);
+  getAllSensors(): Observable<Sensor[]> {
+    const headers = new HttpHeaders().set('Authorization', localStorage.getItem('Token'));
+    return this.httpClient.get<Sensor[]>(this.baseUrl, {headers});
   }
 
-  deleteSensor(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${(this.baseUrl)}/${id}`);
+  createSensor( sensor: Sensor ): Observable<void> {
+    const headers = new HttpHeaders().set('Authorization', localStorage.getItem('Token'));
+    return this.httpClient.post<void>(this.baseUrl, sensor, {headers, responseType: 'text' as 'json'});
   }
 
-  updateSensor(id: number, sensor: Sensor): Observable<void> {
-    return this.httpClient.put<void>(`${(this.baseUrl)}/${id}`, sensor);
+  deleteSensor( id: number ): Observable<void> {
+    const headers = new HttpHeaders().set('Authorization', localStorage.getItem('Token'));
+    return this.httpClient.delete<void>(`${(this.baseUrl)}/${id}`, {headers, responseType: 'text' as 'json'});
   }
 
-  getSensor(id: number): Observable<Sensor> {
-    return this.httpClient.get<Sensor>(`${(this.baseUrl)}/${id}`);
+  updateSensor( id: number, sensor: Sensor ): Observable<void> {
+    const headers = new HttpHeaders().set('Authorization', localStorage.getItem('Token'));
+    return this.httpClient.put<void>(`${(this.baseUrl)}/${id}`, sensor, {headers, responseType: 'text' as 'json'});
   }
 
-  getDescription(id: number): Observable<string> {
-    return this.httpClient.get<string>(`${(this.baseUrl)}/${id}/description`);
+  getSensor( id: number ): Observable<Sensor> {
+    const headers = new HttpHeaders().set('Authorization', localStorage.getItem('Token'));
+    return this.httpClient.get<Sensor>(`${(this.baseUrl)}/${id}`, {headers});
+  }
+
+  logout(): void {
+    localStorage.clear();
   }
 }

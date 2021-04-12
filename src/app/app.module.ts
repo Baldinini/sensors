@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserModule } from '@angular/platform-browser';
+import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SensorsListComponent } from './sensors-list/sensors-list.component';
@@ -15,9 +16,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'sensors', component: SensorsListComponent },
   { path: 'sensors/create', component: CreateSensorComponent },
-  { path: 'sensors/create/:id', component: CreateSensorComponent },
+  { path: 'sensors/edit/:id', component: CreateSensorComponent },
   { path: 'login', component: LoginComponent },
 ];
 
@@ -38,7 +40,8 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    ToastrModule.forRoot(),
   ],
   providers: [LoginComponent],
   bootstrap: [AppComponent]
