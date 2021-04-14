@@ -17,6 +17,7 @@ export class SensorService {
   public generateToken( authRequest: AuthRequest ): Observable<string> {
     const observable = this.httpClient.post<string>(`http://localhost:8080/authentication`, authRequest, {responseType: 'text' as 'json'});
     observable.subscribe(data => this.token = data);
+    localStorage.setItem('userStatus', JSON.parse(this.token)['userStatus']);
     localStorage.setItem('Token', 'Bearer ' + JSON.parse(this.token)['jwt']);
     return observable;
   }
@@ -47,6 +48,7 @@ export class SensorService {
   }
 
   logout(): void {
+    this.token = null;
     localStorage.clear();
   }
 }

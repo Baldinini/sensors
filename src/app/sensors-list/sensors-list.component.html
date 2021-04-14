@@ -36,10 +36,10 @@
     <mat-cell *matCellDef="let sensor">{{sensor.location}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="buttons">
-    <mat-header-cell *matHeaderCellDef> Choose operation</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let sensor">
-      <button mat-raised-button color="primary" routerLink="edit/{{sensor.id}}">Edit</button>
-      <button mat-raised-button color="warn" (click)="delete(sensor.id)">Delete</button>
+      <button mat-raised-button color="primary" routerLink="edit/{{sensor.id}}" *ngIf="condition()">Edit</button>
+      <button mat-raised-button color="warn" (click)="delete(sensor.id)" *ngIf="condition()">Delete</button>
     </mat-cell>
   </ng-container>
 
@@ -47,5 +47,5 @@
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
 
-<button routerLink="/sensors/create" mat-raised-button color="primary">Add sensor</button>
+<button routerLink="/sensors/create" mat-raised-button color="primary" *ngIf="condition()">Add sensor</button>
 <button mat-raised-button color="warn" (click)="logout()">Logout</button>

@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   loginUser(): any {
     this.service.generateToken(this.authRequest).subscribe(data => {
-      console.log('Token: ' + JSON.parse(data)['jwt']);
+      console.log(data);
       this.router.navigateByUrl('sensors');
     });
   }

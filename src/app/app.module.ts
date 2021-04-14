@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {SensorService} from './service/sensor.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -43,7 +44,7 @@ const routes: Routes = [
     MatInputModule,
     ToastrModule.forRoot(),
   ],
-  providers: [LoginComponent],
+  providers: [SensorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

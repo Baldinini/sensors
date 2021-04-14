@@ -31,6 +31,10 @@ export class SensorsListComponent implements OnInit {
       });
   }
 
+  condition(): boolean {
+    return localStorage.getItem('userStatus').includes('ADMIN');
+  }
+
   getAllSensors(): void {
     this.sensorService.getAllSensors().toPromise().then(
       sensors => {
